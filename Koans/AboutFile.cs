@@ -6,6 +6,8 @@ using IOPath = System.IO.Path;
 
 namespace DotNetKoans.Koans;
 
+// TODO: Do we need this?
+
 public class AboutFile : Koan
 {
 	// File is a class that provides static methods for creating, copying, deleting, moving,

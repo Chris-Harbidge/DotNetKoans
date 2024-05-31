@@ -6,7 +6,7 @@ namespace DotNetKoans.Koans;
 public class AboutConstants : Koan
 {
 	[Step(1)]
-	public void ConstantsMustBeInitalizedAsDeclared()
+	public void ConstantsMustBeInitializedAsDeclared()
 	{
 		const int months = 12;
 		Assert.Equal(FILL_ME_IN, 12);
@@ -48,72 +48,5 @@ public class AboutConstants : Koan
 
 		//Constants can be used in arithmetic to set other constant values.
 		//They can also initialize each other.
-	}
-
-	class Animal
-	{
-		public const int Legs = 4;
-
-		public int LegsInAnimal()
-		{
-			return Legs;
-		}
-
-		public class NestedAnimal
-		{
-			public int LegsInNestedAnimal()
-			{
-				return Legs;
-			}
-		}
-	}
-
-	[Step(5)]
-	public void NestedClassesInheritConstantsFromEnclosingClasses()
-	{
-		var nestedAnimal = new Animal.NestedAnimal();
-		Assert.Equal(FILL_ME_IN, nestedAnimal.LegsInNestedAnimal());
-
-		//QUESTION: Do nested classes inherit their parent's scope?
-	}
-
-	class Reptile : Animal
-	{
-		public int LegsInReptile()
-		{
-			return Legs;
-		}
-	}
-
-	[Step(6)]
-	public void SubclassesInheritConstantsFromParentClasses()
-	{
-		//If a Reptile is an Animal, zen is achieved
-		//when you realize they too will have legs.
-		var reptile = new Reptile();
-		Assert.Equal(FILL_ME_IN, reptile.LegsInReptile());
-	}
-
-	class MyAnimals
-	{
-		public const int Legs = 2;
-
-		public class Bird : Animal
-		{
-			public int LegsInBird()
-			{
-				return Legs;
-			}
-		}
-	}
-
-	[Step(7)]
-	public void WhoWinsWithBothNestedAndInheritedConstants()
-	{
-		var bird = new MyAnimals.Bird();
-		Assert.Equal(FILL_ME_IN, bird.LegsInBird());
-
-		/* QUESTION: Which has precedence: The constant in the lexical scope,
-		   or the constant from the inheritance hierarchy? */
 	}
 }

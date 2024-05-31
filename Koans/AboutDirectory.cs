@@ -5,6 +5,8 @@ using IOPath = System.IO.Path;
 
 namespace DotNetKoans.Koans;
 
+// TODO: This may not be needed
+
 public class AboutDirectory : Koan
 {
 	//Directory is a class that provides static methods for creating, moving, and enumerating through directories and subdirectories.

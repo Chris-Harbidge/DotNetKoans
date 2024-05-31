@@ -17,7 +17,7 @@ public class PathToEnlightenment : Path
 			typeof(AboutNull),
 			typeof(AboutConstants),
 			typeof(AboutArrays),
-			typeof(AboutArrayAssignment),
+			typeof(AboutAssignments),
 			typeof(AboutEnumerations),
 			typeof(AboutDictionary),
 			typeof(AboutClasses),
@@ -32,11 +32,9 @@ public class PathToEnlightenment : Path
 			typeof(AboutDirectory),
 			typeof(AboutFile),
 			typeof(AboutLinq),
-			typeof(AboutBitwiseAndShiftOperator),
 			typeof(AboutDestructuring),
 			typeof(AboutPatternMatching),
 			typeof(AboutTuples),
-			typeof(AboutGlobalization),
 			typeof(AboutDisposable),
             typeof(AboutThreads)
         };

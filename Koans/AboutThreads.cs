@@ -4,6 +4,8 @@ using DotNetKoans.Engine;
 
 namespace DotNetKoans.Koans
 {
+    // TODO: THis should be converted to AboutTasks
+    
     public class AboutThreads : Koan
     {
         // Prerequisites Concepts
