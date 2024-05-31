@@ -1,14 +1,13 @@
 using System;
 
-namespace DotNetKoans.Engine.Tests.Fakes
+namespace DotNetKoans.Engine.Tests.Fakes;
+
+public class TestPath : Path
 {
-    public class TestPath : Path
+    public TestPath()
     {
-        public TestPath()
-        {
-            Types = new Type[] {
-                typeof(TestKoan)
-                };
-        }
+        Types = new Type[] {
+            typeof(TestKoan)
+        };
     }
 }

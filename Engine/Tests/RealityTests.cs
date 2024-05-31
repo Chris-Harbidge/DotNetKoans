@@ -1,13 +1,12 @@
 using Xunit;
 
-namespace DotNetKoans.Engine.Tests
+namespace DotNetKoans.Engine.Tests;
+
+public class RealityTests
 {
-    public class RealityTests
+    [Fact]
+    public void TrueShouldBeTrue()
     {
-        [Fact]
-        public void TrueShouldBeTrue()
-        {
-            Assert.True(true);
-        }
+        Assert.True(true);
     }
 }

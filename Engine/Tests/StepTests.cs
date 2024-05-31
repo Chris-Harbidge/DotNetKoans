@@ -4,73 +4,72 @@ using DotNetKoans.Engine.Tests.Fakes;
 using Xunit;
 using Xunit.Sdk;
 
-namespace DotNetKoans.Engine.Tests
+namespace DotNetKoans.Engine.Tests;
+
+public class StepTests : TestBase
 {
-    public class StepTests : TestBase
+    [Fact]
+    public void KoanBuilderShouldBuildCorrectType()
     {
-        [Fact]
-        public void KoanBuilderShouldBuildCorrectType()
-        {
-            var step = new Step(GetTestTypeInfo(), GetTestMethodInfos().First());
+        var step = new Step(GetTestTypeInfo(), GetTestMethodInfos().First());
 
-            var koan = step.GetKoan();
+        var koan = step.GetKoan();
 
-            Assert.IsType<TestKoan>(koan);
-            Assert.Same(koan, step.Instance);
-            Assert.False(step.Instance?.Cast<TestKoan>().WasSetup);
-            Assert.False(step.Instance?.Cast<TestKoan>().WasToreDown);
+        Assert.IsType<TestKoan>(koan);
+        Assert.Same(koan, step.Instance);
+        Assert.False(step.Instance?.Cast<TestKoan>().WasSetup);
+        Assert.False(step.Instance?.Cast<TestKoan>().WasToreDown);
 
-        }
+    }
 
-        [Fact]
-        public void StepNameShouldBeBasedOnTypeAndMethod()
-        {
-            var step = new Step(GetTestTypeInfo(), GetTestMethodInfos().First());
+    [Fact]
+    public void StepNameShouldBeBasedOnTypeAndMethod()
+    {
+        var step = new Step(GetTestTypeInfo(), GetTestMethodInfos().First());
 
-            Assert.Contains(GetTestTypeInfo().Name, step.Name);
-            Assert.Contains(GetTestMethodInfos().First().Name, step.Name);
-            Assert.True(step.Name.IndexOf(GetTestTypeInfo().Name) < step.Name.IndexOf(GetTestMethodInfos().First().Name));
-        }
+        Assert.Contains(GetTestTypeInfo().Name, step.Name);
+        Assert.Contains(GetTestMethodInfos().First().Name, step.Name);
+        Assert.True(step.Name.IndexOf(GetTestTypeInfo().Name) < step.Name.IndexOf(GetTestMethodInfos().First().Name));
+    }
 
-        [Fact]
-        public void PassingStepShouldBeSuccessful()
-        {
-            var step = new Step(GetTestTypeInfo(), GetTestMethodInfos().First());
+    [Fact]
+    public void PassingStepShouldBeSuccessful()
+    {
+        var step = new Step(GetTestTypeInfo(), GetTestMethodInfos().First());
 
-            var result = step.Meditate();
+        var result = step.Meditate();
 
-            Assert.IsType<SuccessStepResult>(result);
-            Assert.Same(step, result.Step);
-            Assert.True(step.Instance.Cast<TestKoan>().WasSetup, "Koan was unexpectedly setup");
-            Assert.True(step.Instance.Cast<TestKoan>().WasToreDown, "Koan was unexpectedly tore down");
-        }
+        Assert.IsType<SuccessStepResult>(result);
+        Assert.Same(step, result.Step);
+        Assert.True(step.Instance.Cast<TestKoan>().WasSetup, "Koan was unexpectedly setup");
+        Assert.True(step.Instance.Cast<TestKoan>().WasToreDown, "Koan was unexpectedly tore down");
+    }
 
-        [Fact]
-        public void FailingAssertionStepShouldFail()
-        {
-            var step = new Step(GetTestTypeInfo(), GetTestMethodInfos()[1]);
+    [Fact]
+    public void FailingAssertionStepShouldFail()
+    {
+        var step = new Step(GetTestTypeInfo(), GetTestMethodInfos()[1]);
 
-            var result = step.Meditate();
+        var result = step.Meditate();
 
-            Assert.IsType<AssertionFailedStepResult>(result);
-            Assert.IsAssignableFrom<XunitException>(result.Cast<AssertionFailedStepResult>().Exception);
-            Assert.Same(step, result.Step);
-            Assert.True(step.Instance.Cast<TestKoan>().WasSetup, "Koan was not properly setup");
-            Assert.True(step.Instance.Cast<TestKoan>().WasToreDown, "Koan was not properly tore down");
-        }
+        Assert.IsType<AssertionFailedStepResult>(result);
+        Assert.IsAssignableFrom<XunitException>(result.Cast<AssertionFailedStepResult>().Exception);
+        Assert.Same(step, result.Step);
+        Assert.True(step.Instance.Cast<TestKoan>().WasSetup, "Koan was not properly setup");
+        Assert.True(step.Instance.Cast<TestKoan>().WasToreDown, "Koan was not properly tore down");
+    }
 
-        [Fact]
-        public void RandomExceptionStepShouldFail()
-        {
-            var step = new Step(GetTestTypeInfo(), GetTestMethodInfos().Last());
+    [Fact]
+    public void RandomExceptionStepShouldFail()
+    {
+        var step = new Step(GetTestTypeInfo(), GetTestMethodInfos().Last());
 
-            var result = step.Meditate();
+        var result = step.Meditate();
 
-            Assert.IsType<FailedStepResult>(result);
-            Assert.IsAssignableFrom<NotImplementedException>(result.Cast<FailedStepResult>().Exception);
-            Assert.Same(step, result.Step);
-            Assert.True(step.Instance.Cast<TestKoan>().WasSetup, "Koan was not properly setup");
-            Assert.True(step.Instance.Cast<TestKoan>().WasToreDown, "Koan was not properly tore down");
-        }
+        Assert.IsType<FailedStepResult>(result);
+        Assert.IsAssignableFrom<NotImplementedException>(result.Cast<FailedStepResult>().Exception);
+        Assert.Same(step, result.Step);
+        Assert.True(step.Instance.Cast<TestKoan>().WasSetup, "Koan was not properly setup");
+        Assert.True(step.Instance.Cast<TestKoan>().WasToreDown, "Koan was not properly tore down");
     }
 }
