@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Microsoft.DotNet.Cli.Utils;
 using Xunit.Sdk;
 
@@ -24,7 +25,15 @@ public class Step
         var koan = GetKoan();
         var results = new[] {
             Try(() => koan.Setup()),
-            Try(() => MethodInfo.Invoke(koan, Array.Empty<object>())),
+            Try(() =>
+            {
+                var result = MethodInfo.Invoke(koan, []);
+
+                if (result is Task task)
+                {
+                    task.GetAwaiter().GetResult();
+                }
+            }),
             Try(() => koan.TearDown())
         };
 
