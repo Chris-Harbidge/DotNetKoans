@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using DotNetKoans.Engine;
 using Xunit;
@@ -36,7 +37,7 @@ public class AboutTasks : Koan
         async Task<bool> quickTask()
         {
             await Task.Delay(10);
-            return true;
+            return false;
         }
 
         async Task<bool> slowTask()
@@ -46,6 +47,12 @@ public class AboutTasks : Koan
         }
 
         await Task.WaitAll(FILL_ME_IN, FILL_ME_IN);
+        // Task.WaitAll does not return the values from the tasks
+        // We can still get the results from each task using `.Result()`
+        // N.B. You should *not* use `.Result()` on a task unless the task has already been awaited
+        // Calling `.Result()` on an un-awaited task will cause the main thread to block until the task has completed
+        Assert.Equal(quickTask().Result, FILL_ME_IN);
+        Assert.Equal(slowTask().Result, FILL_ME_IN);
     }
 
     [Step(3)]
@@ -63,9 +70,37 @@ public class AboutTasks : Koan
             return true;
         }
 
+        // Using Task.WhenAll returns the values from each task in an array
         var result = await Task.WhenAll(FILL_ME_IN, FILL_ME_IN);
         
         Assert.Equal(new bool[]{FILL_ME_IN, FILL_ME_IN}, result);
+    }
+    
+    [Step(4)]
+    public async Task UsingCancellingTokens()
+    {
+        // Cancellation tokens are a core part of Api programming in Dotnet
+        // They allow us to quickly cancel tasks if the connection to the client is lost, for example
+        // Almost all asynchronous methods offered by the Dotnet libraries will have a version which takes in a cancellation token
+        
+        async Task longRunningTaskToCancel(CancellationToken cancellationToken)
+        {
+            while (cancellationToken.IsCancellationRequested == false)
+            {
+                await Task.Delay(10, cancellationToken);
+            }
+        }
+
+        var cancellationToken = new CancellationToken();
+
+        var longRunningTask = longRunningTaskToCancel(FILL_ME_IN);
+        
+        // TODO Cancel token
+
+        await longRunningTask();
+        
+        // TODO: Janky
+        Assert.True(true);
     }
 
 }

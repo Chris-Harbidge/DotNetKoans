@@ -31,7 +31,6 @@ public class PathToEnlightenment : Path
 			typeof(AboutGenericContainers),
 			typeof(AboutDelegates),
 			typeof(AboutLambdas),
-			typeof(AboutDirectory),
 			typeof(AboutLinq),
 			typeof(AboutDestructuring),
 			typeof(AboutPatternMatching),
