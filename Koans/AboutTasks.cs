@@ -25,12 +25,12 @@ public class AboutTasks : Koan
             await Task.Delay(10000);
             return true;
         } 
-
+    
         var result = await FILL_ME_IN;
         
         Assert.True(result);
     }
-
+    
     [Step(2)]
     public async Task RunningMultipleTasks()
     {
@@ -39,13 +39,13 @@ public class AboutTasks : Koan
             await Task.Delay(10);
             return false;
         }
-
+    
         async Task<bool> slowTask()
         {
             await Task.Delay(500);
             return true;
         }
-
+    
         await Task.WaitAll(FILL_ME_IN, FILL_ME_IN);
         // Task.WaitAll does not return the values from the tasks
         // We can still get the results from each task using `.Result()`
@@ -54,7 +54,7 @@ public class AboutTasks : Koan
         Assert.Equal(quickTask().Result, FILL_ME_IN);
         Assert.Equal(slowTask().Result, FILL_ME_IN);
     }
-
+    
     [Step(3)]
     public async Task GettingResultsFromMultipleTasks()
     {
@@ -63,13 +63,13 @@ public class AboutTasks : Koan
             await Task.Delay(10);
             return true;
         }
-
+    
         async Task<bool> slowTask()
         {
             await Task.Delay(500);
             return true;
         }
-
+    
         // Using Task.WhenAll returns the values from each task in an array
         var result = await Task.WhenAll(FILL_ME_IN, FILL_ME_IN);
         
@@ -85,22 +85,24 @@ public class AboutTasks : Koan
         
         async Task longRunningTaskToCancel(CancellationToken cancellationToken)
         {
+            var counter = 0;
             while (cancellationToken.IsCancellationRequested == false)
             {
-                await Task.Delay(10, cancellationToken);
+                counter++;
+                await Task.Delay(10);
+                if (counter > 11)
+                {
+                    Assert.Fail("Task was not cancelled");
+                }
             }
         }
 
-        var cancellationToken = new CancellationToken();
+        var cancellationTokenSource = new CancellationTokenSource();
+        var cancellationToken = cancellationTokenSource.Token;
+        cancellationTokenSource.CancelAfter(100);
 
         var longRunningTask = longRunningTaskToCancel(FILL_ME_IN);
         
-        // TODO Cancel token
-
-        await longRunningTask();
-        
-        // TODO: Janky
-        Assert.True(true);
+        await longRunningTask;
     }
-
 }

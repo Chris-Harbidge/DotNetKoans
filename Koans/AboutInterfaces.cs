@@ -8,7 +8,6 @@ public class AboutInterfaces : Koan
     // Interfaces define methods that an implementing class must provide an implementation for
     // They are different from abstract classes in that:
     // - They do not provide default implementations (*NB* There are exceptions to this we won't go into)
-    // - They can only be public
     // - An implementing class can implement more than one interface, whereas only one class can be subclassed
 
     interface Step1Interface
