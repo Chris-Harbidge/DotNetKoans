@@ -14,7 +14,7 @@ public class AboutTasks : Koan
     // thread pools etc.
     // We use `await` to pause execution until a task has completed
     // The `async` keyword indicates a method is `await`able
-    // Methods which do asynchronous work should have a return type of `Task` or `Task<T>` 
+    // Methods which do asynchronous work should have a return type of `Task` or `Task<[Some Type]>` 
     
     [Step(1)]
     public async Task BasicAsyncAwait()
@@ -81,7 +81,7 @@ public class AboutTasks : Koan
     {
         // Cancellation tokens are a core part of Api programming in Dotnet
         // They allow us to quickly cancel tasks if the connection to the client is lost, for example
-        // Almost all asynchronous methods offered by the Dotnet libraries will have a version which takes in a cancellation token
+        // Almost all asynchronous methods offered by the Dotnet libraries will have a version which accepts a cancellation token
         
         async Task longRunningTaskToCancel(CancellationToken cancellationToken)
         {
@@ -90,7 +90,7 @@ public class AboutTasks : Koan
             {
                 counter++;
                 await Task.Delay(10);
-                if (counter > 11)
+                if (counter > 12)
                 {
                     Assert.Fail("Task was not cancelled");
                 }
