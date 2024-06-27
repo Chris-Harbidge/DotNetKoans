@@ -29,7 +29,6 @@ public class PathToEnlightenment : Path
 			typeof(AboutIteration),
 			typeof(AboutExceptions),
 			typeof(AboutGenericContainers),
-			typeof(AboutDelegates),
 			typeof(AboutLambdas),
 			typeof(AboutLinq),
 			typeof(AboutDestructuring),
