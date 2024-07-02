@@ -9,8 +9,6 @@ public class PathToEnlightenment : Path
 	{
 		Types = new Type[]
 		{
-			typeof(AboutTasks),
-			typeof(AboutInterfaces),
 			typeof(AboutAsserts),
 			typeof(AboutBooleans),
 			typeof(AboutStrings),
@@ -35,7 +33,8 @@ public class PathToEnlightenment : Path
 			typeof(AboutPatternMatching),
 			typeof(AboutTuples),
 			typeof(AboutDisposable),
-
+			typeof(AboutTasks),
+			typeof(AboutInterfaces)
         };
 	}
 }
