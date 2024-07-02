@@ -77,7 +77,7 @@ public class AboutTasks : Koan
     }
     
     [Step(4)]
-    public async Task UsingCancellingTokens()
+    public async Task UsingCancellationTokens()
     {
         // Cancellation tokens are a core part of Api programming in Dotnet
         // They allow us to quickly cancel tasks if the connection to the client is lost, for example
